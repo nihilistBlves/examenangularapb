@@ -1,0 +1,30 @@
+<div class="row d-flex justify-content-center mt-3 text-center">
+    <h1>Ver peliculas</h1>
+    <app-detallespelicula *ngIf="peliculaSeleccionada && mostrar" [pelicula]="peliculaSeleccionada" (ocultar)="ocultarHijo($event)" (recargarPeliculas)="cargarDatos($event)"></app-detallespelicula>
+    <div class="col-6 text-center">
+        <table class="table table-striped" *ngIf="peliculas">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>TITULO</th>
+                    <TH>ACCION</TH>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let pel of peliculas">
+                    <td>{{pel.idPelicula}}</td>
+                    <td>{{pel.titulo}}</td>
+                    <td>
+                        <button class="btn btn-outline-primary" (click)="seleccionarPelicula(pel)">Ver detalles</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div *ngIf="!peliculas">
+            <h2>Loading...</h2>
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+</div>

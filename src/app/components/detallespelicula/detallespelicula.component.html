@@ -1,0 +1,51 @@
+<div class="row d-flex justify-content-center mt-3 mb-3">
+    <div class="col-6 text-center">
+        <div class="card" *ngIf="pelicula">
+            <img [src]="pelicula.foto" class="card-img-top" height="200px">
+            <div class="card-body">
+              <h4 class="card-title">{{pelicula.titulo}}</h4>
+              <h5 class="card-text text-muted" *ngIf="peliculaGenero">Género: {{peliculaGenero.nombre}}</h5>
+              <p class="card-text">{{pelicula.argumento}}</p>
+              <button (click)="mostrarFrameVideo()" class="btn btn-danger">YouTube</button>
+              <div class="embed-responsive embed-responsive-1by1 mt-3" *ngIf="mostrarVideo">
+                <iframe class="embed-responsive-item" [src]="getVideoFrame(pelicula.enlaceVideo)"></iframe>
+              </div>
+            </div>
+            <!-- FOOTER MODIFICAR GENERO -->
+            <div class="card-footer">
+                <h5 class="card-title">Modificar género</h5>
+                <form #formGeneros="ngForm">
+                    <select class="form-select mb-3" #selectgeneros name="selectgeneros" id="selectgeneros">
+                        <option *ngFor="let gen of generos" [value]="gen.idGenero">{{gen.nombre}}</option>
+                    </select>
+                    <button class="btn btn-primary" (click)="modificarGenero()">Modificar</button>
+                </form>
+            </div>
+            <!-- FOOTER ELIMINAR -->
+            <div class="card-footer">
+                <h5 class="card-title">Eliminar película</h5>
+                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#eliminarModal">Eliminar</button>
+                  <div class="modal fade" id="eliminarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">¿Está seguro de querer eliminar la película?</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Volver</button>
+                          <button type="button" class="btn btn-danger" (click)="eliminarPelicula()" data-bs-dismiss="modal">Eliminar película</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+        </div>
+        <div *ngIf="!pelicula">
+            <h2>Loading...</h2>
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+</div>
